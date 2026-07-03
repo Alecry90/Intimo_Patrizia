@@ -6,8 +6,8 @@
     --color-primary: #B76E79; /* Rose Gold */
     --color-primary-dark: #91555E;
     --color-secondary: #F7E9E8; /* Blush Pink / Cipria */
-    --color-text-dark: #333333; /* Antracite per leggibilità */
-    --color-text-light: #777777;
+    --color-text-dark: #2a1a1b; /* Tonalità scura ricavata dall'insegna */
+    --color-text-light: #6a5a5b;
     --color-bg-light: #FDFDFD;
     --color-white: #FFFFFF;
     
@@ -140,10 +140,12 @@ img {
 }
 
 .logo-img {
-    height: 50px; /* Altezza regolabile per l'insegna */
+    height: 60px; /* Altezza regolabile per l'insegna, un po' più grande */
     width: auto;
     object-fit: contain;
-    border-radius: 4px; /* opzionale, se l'insegna è rettangolare */
+    border-radius: 6px; /* opzionale, se l'insegna è rettangolare */
+    /* Filtro per pulire e rendere più nitida la foto dell'insegna (aumenta contrasto e saturazione) */
+    filter: contrast(1.2) saturate(1.15) brightness(1.05) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 .nav-list {
