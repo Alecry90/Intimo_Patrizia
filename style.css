@@ -132,13 +132,18 @@ img {
 }
 
 .logo-img {
-    height: 50px;
+    height: 90px;
     width: auto;
     object-fit: contain;
+    transition: height var(--transition-fast);
+}
+
+.navbar.scrolled .logo-img {
+    height: 60px;
 }
 
 .footer-logo {
-    height: 60px;
+    height: 120px;
     width: auto;
     object-fit: contain;
     margin-bottom: 1rem;
