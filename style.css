@@ -139,6 +139,13 @@ img {
     letter-spacing: 1px;
 }
 
+.logo-img {
+    height: 50px; /* Altezza regolabile per l'insegna */
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px; /* opzionale, se l'insegna è rettangolare */
+}
+
 .nav-list {
     display: flex;
     gap: 2rem;
@@ -319,6 +326,11 @@ img {
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-slow);
+}
+
+.product-image {
+    /* Filtro CSS per rendere le foto più nitide e brillanti */
+    filter: contrast(1.15) saturate(1.1) brightness(1.05);
 }
 
 .card:hover .card-img-wrapper img {
