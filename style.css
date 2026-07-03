@@ -139,14 +139,7 @@ img {
     letter-spacing: 1px;
 }
 
-.logo-img {
-    height: 60px; /* Altezza regolabile per l'insegna, un po' più grande */
-    width: auto;
-    object-fit: contain;
-    border-radius: 6px; /* opzionale, se l'insegna è rettangolare */
-    /* Filtro per pulire e rendere più nitida la foto dell'insegna (aumenta contrasto e saturazione) */
-    filter: contrast(1.2) saturate(1.15) brightness(1.05) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
+/* (Classe img logo rimossa in quanto è tornato testo) */
 
 .nav-list {
     display: flex;
@@ -201,7 +194,7 @@ img {
 .hero {
     height: 100vh;
     min-height: 600px;
-    background-image: url('https://images.unsplash.com/photo-1594916840730-109043c7b372?auto=format&fit=crop&w=1920&q=80');
+    background-image: url('images/INSEGNA%20INTIMO%20PATRIZIA.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -218,7 +211,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Scurisce l'immagine per leggerezza del testo */
+    background: rgba(42, 26, 27, 0.65); /* Overlay scuro usando il colore principale per far risaltare il testo bianco */
 }
 
 .hero-content {
