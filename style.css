@@ -131,15 +131,18 @@ img {
     align-items: center;
 }
 
-.logo-text {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    letter-spacing: 1px;
+.logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
 }
 
-/* (Classe img logo rimossa in quanto è tornato testo) */
+.footer-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
 
 .nav-list {
     display: flex;
