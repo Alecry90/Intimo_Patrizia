@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "demo_mode": true,
+  "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+  "categories": [
+    {
+      "id": 1,
+      "name": "Intimo",
+      "product_id_min": 1001,
+      "product_id_max": 1999,
+      "products_file": "categories/intimo.json"
+    },
+    {
+      "id": 2,
+      "name": "Pigiameria",
+      "product_id_min": 2001,
+      "product_id_max": 2999,
+      "products_file": "categories/pigiameria.json"
+    },
+    {
+      "id": 3,
+      "name": "Biancheria",
+      "product_id_min": 3001,
+      "product_id_max": 3999,
+      "products_file": "categories/biancheria.json"
+    },
+    {
+      "id": 4,
+      "name": "Bambino",
+      "product_id_min": 4001,
+      "product_id_max": 4999,
+      "products_file": "categories/bambino.json"
+    }
+  ],
+  "products": []
+}

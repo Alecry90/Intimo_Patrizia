@@ -30,6 +30,7 @@
                     <li><a href="#home" class="nav-link">Home</a></li>
                     <li><a href="#chi-siamo" class="nav-link">Chi Siamo</a></li>
                     <li><a href="#collezioni" class="nav-link">Collezioni</a></li>
+                    <li><a href="/catalogo" class="nav-link">Catalogo</a></li>
                     <li><a href="#contatti" class="nav-link">Contatti</a></li>
                 </ul>
             </nav>
@@ -75,48 +76,52 @@
                 <div class="grid-collezioni">
                     
                     <!-- Card 1 -->
-                    <div class="card fade-in-scroll">
+                    <a href="/catalogo?categoria=1" class="card collection-link fade-in-scroll">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80" alt="Abbigliamento Intimo" class="product-image">
                         </div>
                         <div class="card-content">
                             <h3>Intimo</h3>
                             <p>Eleganza e comfort per tutti i giorni o per le occasioni speciali. Capi in pizzo, seta e cotone pregiato.</p>
+                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Card 2 -->
-                    <div class="card fade-in-scroll" style="transition-delay: 0.1s;">
+                    <a href="/catalogo?categoria=2" class="card collection-link fade-in-scroll" style="transition-delay: 0.1s;">
                         <div class="card-img-wrapper">
                             <img src="https://images.unsplash.com/photo-1560969562-b43d27eb9543?auto=format&fit=crop&w=600&q=80" alt="Pigiameria e Homewear" class="product-image">
                         </div>
                         <div class="card-content">
                             <h3>Pigiameria</h3>
                             <p>Coccolati con i nostri pigiami e capi homewear. Materiali caldi per l'inverno e freschi per l'estate.</p>
+                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Card 3 -->
-                    <div class="card fade-in-scroll" style="transition-delay: 0.2s;">
+                    <a href="/catalogo?categoria=3" class="card collection-link fade-in-scroll" style="transition-delay: 0.2s;">
                         <div class="card-img-wrapper">
                             <img src="images/biancheria.jpg" alt="Biancheria per la Casa" class="product-image">
                         </div>
                         <div class="card-content">
                             <h3>Biancheria</h3>
                             <p>Vesti la tua casa con stile. Lenzuola, asciugamani e corredi delle migliori marche per la tua zona notte e bagno.</p>
+                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
 
                     <!-- Card 4 -->
-                    <div class="card fade-in-scroll" style="transition-delay: 0.3s;">
+                    <a href="/catalogo?categoria=4" class="card collection-link fade-in-scroll" style="transition-delay: 0.3s;">
                         <div class="card-img-wrapper">
                             <img src="images/binbo.jpg" alt="Reparto Bambino" class="product-image">
                         </div>
                         <div class="card-content">
                             <h3>Bambino</h3>
                             <p>Tessuti delicati e sicuri per la pelle dei più piccoli. Intimo, pigiamini e accessori per neonati e bambini.</p>
+                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>
@@ -153,7 +158,70 @@
         </div>
     </footer>
 
+    <!-- Assistente del negozio: servito insieme al backend Python -->
+    <button id="chat-toggle" class="chat-toggle" type="button" aria-controls="shop-chat" aria-expanded="false">
+        <span aria-hidden="true">✦</span> Chiedi a Patrizia
+    </button>
+    <section id="shop-chat" class="shop-chat" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+        <header class="chat-header">
+            <div>
+                <p class="chat-eyebrow">Intimo Patrizia</p>
+                <h2 id="chat-title">Il tuo assistente</h2>
+            </div>
+            <button id="chat-close" class="chat-icon-button" type="button" aria-label="Chiudi la chat">×</button>
+        </header>
+        <div class="chat-content">
+            <div id="chat-connection" class="chat-notice" role="status" hidden>
+                <p id="chat-connection-text"></p>
+                <button id="chat-reconnect" class="chat-text-button" type="button">Riprova la connessione</button>
+            </div>
+            <form id="chat-identity-form" class="chat-identity-form">
+                <p>Benvenuto! Come possiamo aiutarti?</p>
+                <p class="chat-small">Inserisci nome ed email per questa sessione. Sono dati dichiarati da te: non creiamo un account e non verifichiamo l'email.</p>
+                <label for="chat-name">Nome</label>
+                <input id="chat-name" name="name" autocomplete="given-name" maxlength="80" required>
+                <label for="chat-email">Email</label>
+                <input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+                <label class="chat-check" for="chat-remember">
+                    <input id="chat-remember" name="remember" type="checkbox">
+                    <span>Salva le mie domande e i miei interessi per personalizzare questa chat.</span>
+                </label>
+                <p class="chat-small">Facoltativo: il server del negozio conserva nome, email, domande e conteggi degli argomenti in un file JSON locale. Puoi usare la chat anche senza salvare e cancellare i dati dal pulsante nella chat. Non inserire password o dati sensibili.</p>
+                <p id="chat-identity-error" class="chat-error" role="alert" hidden></p>
+                <button id="chat-start" class="chat-primary-button" type="submit">Inizia la chat</button>
+            </form>
+            <div id="chat-conversation" hidden>
+                <div class="chat-customer-bar">
+                    <p id="chat-customer"></p>
+                    <button id="chat-delete" class="chat-text-button" type="button">Elimina i miei dati</button>
+                </div>
+                <p id="chat-memory-mode" class="chat-small"></p>
+                <details id="chat-preferences" class="chat-preferences">
+                    <summary>Argomenti più richiesti</summary>
+                    <p class="chat-small">Conteggi delle categorie e degli ID citati nelle tue domande; non indicano acquisti o preferenze certe.</p>
+                    <ul id="chat-preference-list"></ul>
+                </details>
+                <div id="chat-log" class="chat-log" role="log" aria-label="Conversazione con l'assistente" aria-live="polite" aria-relevant="additions"></div>
+                <div class="chat-suggestions" aria-label="Esplora una categoria">
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Intimo">Intimo</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Pigiameria">Pigiameria</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Biancheria">Biancheria</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Bambino">Bambino</button>
+                </div>
+                <p id="chat-status" class="chat-small chat-status" role="status"></p>
+                <button id="chat-retry" class="chat-text-button" type="button" hidden>Riprova la stessa domanda</button>
+                <form id="chat-message-form" class="chat-message-form">
+                    <label class="chat-visually-hidden" for="chat-message">La tua domanda</label>
+                    <input id="chat-message" name="message" placeholder="Scrivi una domanda…" maxlength="2000" autocomplete="off" required>
+                    <button id="chat-send" class="chat-primary-button" type="submit">Invia</button>
+                </form>
+            </div>
+        </div>
+        <footer class="chat-footer">DEMO · prodotti, prezzi e disponibilità fittizi, solo per simulazioni</footer>
+    </section>
+
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
+    <script src="chat.js" defer></script>
 </body>
 </html>

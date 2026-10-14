@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "category_id": 3,
+  "products": [
+    {
+      "id": 3001,
+      "category_id": 3,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Completo Lenzuola Armonia",
+      "description": "Completo dimostrativo composto da lenzuolo sopra, lenzuolo con angoli e due federe.",
+      "brand": "Linea Demo",
+      "price_eur": 49.9,
+      "sizes": [
+        "Matrimoniale: sotto 160x200 cm; sopra 240x280 cm; federe 50x80 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Sabbia"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 3002,
+      "category_id": 3,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Set Asciugamani Morbidezza",
+      "description": "Set dimostrativo composto da un asciugamano viso e uno ospite.",
+      "brand": "Linea Demo",
+      "price_eur": 24.9,
+      "sizes": [
+        "Viso 60x100 cm + ospite 40x60 cm"
+      ],
+      "colors": [
+        "Bianco",
+        "Salvia",
+        "Tortora"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 3003,
+      "category_id": 3,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Copripiumino Sogno",
+      "description": "Copripiumino dimostrativo con due federe; composizione lasciata non compilata per simulare una scheda incompleta.",
+      "brand": "Linea Demo",
+      "price_eur": 59.9,
+      "sizes": [
+        "Matrimoniale: sacco 250x200 cm; federe 50x80 cm"
+      ],
+      "colors": [
+        "Blu",
+        "Beige"
+      ],
+      "materials": null,
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    }
+  ]
+}

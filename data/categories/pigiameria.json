@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "category_id": 2,
+  "products": [
+    {
+      "id": 2001,
+      "category_id": 2,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Pigiama Luna",
+      "description": "Pigiama dimostrativo lungo in due pezzi, con maglia girocollo e pantalone con elastico.",
+      "brand": "Linea Demo",
+      "price_eur": 34.9,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Blu",
+        "Grigio"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 2002,
+      "category_id": 2,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Pigiama Brezza",
+      "description": "Pigiama dimostrativo corto con maglia a maniche corte e pantaloncino.",
+      "brand": "Linea Demo",
+      "price_eur": 29.9,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Azzurro",
+        "Rosa"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 2003,
+      "category_id": 2,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Vestaglia Nuvola",
+      "description": "Vestaglia dimostrativa con cintura e due tasche frontali.",
+      "brand": "Linea Demo",
+      "price_eur": 39.9,
+      "sizes": [
+        "S/M",
+        "L/XL"
+      ],
+      "colors": [
+        "Panna",
+        "Grigio"
+      ],
+      "materials": [
+        "100% poliestere"
+      ],
+      "availability": "non disponibile (simulazione)"
+    }
+  ]
+}

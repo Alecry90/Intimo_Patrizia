@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "category_id": 4,
+  "products": [
+    {
+      "id": 4001,
+      "category_id": 4,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Body Bimbo Stella",
+      "description": "Body dimostrativo a maniche corte con chiusura a bottoni automatici.",
+      "brand": "Linea Demo",
+      "price_eur": 12.9,
+      "sizes": [
+        "0-3 mesi",
+        "3-6 mesi",
+        "6-9 mesi",
+        "9-12 mesi"
+      ],
+      "colors": [
+        "Bianco",
+        "Azzurro",
+        "Rosa"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 4002,
+      "category_id": 4,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Pigiama Bimbo Orsetto",
+      "description": "Pigiama dimostrativo lungo in due pezzi con stampa di un orsetto.",
+      "brand": "Linea Demo",
+      "price_eur": 19.9,
+      "sizes": [
+        "2 anni",
+        "3 anni",
+        "4 anni",
+        "5 anni"
+      ],
+      "colors": [
+        "Azzurro",
+        "Verde"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 4003,
+      "category_id": 4,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Calzini Bimbo Arcobaleno",
+      "description": "Coppia di calzini dimostrativi con motivo a righe multicolore.",
+      "brand": "Linea Demo",
+      "price_eur": 6.9,
+      "sizes": [
+        "19-22",
+        "23-26",
+        "27-30"
+      ],
+      "colors": [
+        "Multicolore"
+      ],
+      "materials": [
+        "80% cotone",
+        "18% poliammide",
+        "2% elastan"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    }
+  ]
+}

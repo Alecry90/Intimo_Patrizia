@@ -28,3 +28,16 @@ pnpm-debug.log*
 dist/
 build/
 out/
+
+# Python e configurazione locale
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+
+# Dati personali e runtime creati dal backend
+data/customers/
+data/runtime/

@@ -1,0 +1,6 @@
+# Python 3.11+. Un solo worker per il salvataggio JSON locale.
+fastapi>=0.142.1,<0.143
+uvicorn>=0.54.0,<0.55
+langgraph>=1.2.12,<1.3
+langchain-ollama>=1.1.0,<1.2
+httpx>=0.28.1,<0.29

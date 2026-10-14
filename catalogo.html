@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Esplora il catalogo Intimo Patrizia: intimo, pigiameria, biancheria e bambino. Catalogo dimostrativo.">
+    <title>Catalogo | Intimo Patrizia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/catalogo.js" defer></script>
+    <script src="/chat.js" defer></script>
+</head>
+<body class="catalogue-page">
+    <a href="#catalogue-main" class="catalogue-skip-link">Vai al catalogo</a>
+    <header class="catalogue-header">
+        <div class="container catalogue-nav">
+            <a href="/" class="logo" aria-label="Intimo Patrizia, home">
+                <img src="/images/LOGO%20INTIMO%20PATRIZIA.png" alt="Intimo Patrizia" class="logo-img">
+            </a>
+            <nav aria-label="Navigazione principale">
+                <a href="/">Home</a>
+                <a href="/#collezioni">Collezioni</a>
+                <a href="/catalogo" aria-current="page">Catalogo</a>
+            </nav>
+        </div>
+    </header>
+    <main id="catalogue-main">
+        <section class="catalogue-intro">
+            <div class="container">
+                <p class="catalogue-eyebrow">Intimo Patrizia · Bari</p>
+                <h1 id="catalogue-heading">Il nostro catalogo</h1>
+                <p>Piccoli dettagli, comfort quotidiano. Esplora le collezioni e apri un prodotto per scoprirne tutte le informazioni.</p>
+                <p id="catalogue-demo" class="catalogue-demo" hidden><strong>Catalogo dimostrativo.</strong> Prodotti, prezzi e disponibilità sono fittizi e servono solo per provare il sito e l'assistente.</p>
+            </div>
+        </section>
+        <section class="container catalogue-section" aria-labelledby="catalogue-heading">
+            <div class="catalogue-toolbar">
+                <nav id="catalogue-categories" class="catalogue-categories" aria-label="Filtra per categoria"></nav>
+                <div class="catalogue-search">
+                    <label for="catalogue-search-input">Cerca un prodotto</label>
+                    <input id="catalogue-search-input" type="search" placeholder="Ad esempio: Pigiama Luna" maxlength="120" autocomplete="off">
+                </div>
+            </div>
+            <p id="catalogue-count" class="catalogue-count" role="status"></p>
+            <div id="catalogue-state" class="catalogue-state" role="status">
+                <p id="catalogue-state-text">Caricamento del catalogo…</p>
+                <button id="catalogue-retry" class="chat-primary-button" type="button" hidden>Riprova</button>
+                <a id="catalogue-reset" href="/catalogo" hidden>Torna a tutto il catalogo</a>
+            </div>
+            <div id="catalogue-products" class="catalogue-grid" aria-busy="true"></div>
+            <noscript><p class="catalogue-state">Attiva JavaScript per consultare il catalogo. Puoi contattare il negozio al <a href="tel:+390805794644">080 579 4644</a>.</p></noscript>
+        </section>
+    </main>
+    <footer class="catalogue-footer">
+        <div class="container">
+            <p class="catalogue-footer-name">Intimo Patrizia</p>
+            <p>Via Ettore Fieramosca, 94/96 · Bari</p>
+            <a href="tel:+390805794644">080 579 4644</a>
+            <p>Un dubbio su un prodotto? Chiedi all'assistente del negozio.</p>
+        </div>
+    </footer>
+    <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-dialog-title">
+        <div class="product-dialog-top">
+            <p id="product-dialog-category" class="catalogue-eyebrow"></p>
+            <button id="product-dialog-close" class="chat-icon-button" type="button" aria-label="Chiudi la scheda prodotto" autofocus>&times;</button>
+        </div>
+        <div id="product-dialog-content"></div>
+    </dialog>
+    <!-- Assistente del negozio: servito insieme al backend Python -->
+    <button id="chat-toggle" class="chat-toggle" type="button" aria-controls="shop-chat" aria-expanded="false">
+        <span aria-hidden="true">✦</span> Chiedi a Patrizia
+    </button>
+    <section id="shop-chat" class="shop-chat" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+        <header class="chat-header">
+            <div>
+                <p class="chat-eyebrow">Intimo Patrizia</p>
+                <h2 id="chat-title">Il tuo assistente</h2>
+            </div>
+            <button id="chat-close" class="chat-icon-button" type="button" aria-label="Chiudi la chat">×</button>
+        </header>
+        <div class="chat-content">
+            <div id="chat-connection" class="chat-notice" role="status" hidden>
+                <p id="chat-connection-text"></p>
+                <button id="chat-reconnect" class="chat-text-button" type="button">Riprova la connessione</button>
+            </div>
+            <form id="chat-identity-form" class="chat-identity-form">
+                <p>Benvenuto! Come possiamo aiutarti?</p>
+                <p class="chat-small">Inserisci nome ed email per questa sessione. Sono dati dichiarati da te: non creiamo un account e non verifichiamo l'email.</p>
+                <label for="chat-name">Nome</label>
+                <input id="chat-name" name="name" autocomplete="given-name" maxlength="80" required>
+                <label for="chat-email">Email</label>
+                <input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+                <label class="chat-check" for="chat-remember">
+                    <input id="chat-remember" name="remember" type="checkbox">
+                    <span>Salva le mie domande e i miei interessi per personalizzare questa chat.</span>
+                </label>
+                <p class="chat-small">Facoltativo: il server del negozio conserva nome, email, domande e conteggi degli argomenti in un file JSON locale. Puoi usare la chat anche senza salvare e cancellare i dati dal pulsante nella chat. Non inserire password o dati sensibili.</p>
+                <p id="chat-identity-error" class="chat-error" role="alert" hidden></p>
+                <button id="chat-start" class="chat-primary-button" type="submit">Inizia la chat</button>
+            </form>
+            <div id="chat-conversation" hidden>
+                <div class="chat-customer-bar">
+                    <p id="chat-customer"></p>
+                    <button id="chat-delete" class="chat-text-button" type="button">Elimina i miei dati</button>
+                </div>
+                <p id="chat-memory-mode" class="chat-small"></p>
+                <details id="chat-preferences" class="chat-preferences">
+                    <summary>Argomenti più richiesti</summary>
+                    <p class="chat-small">Conteggi delle categorie e degli ID citati nelle tue domande; non indicano acquisti o preferenze certe.</p>
+                    <ul id="chat-preference-list"></ul>
+                </details>
+                <div id="chat-log" class="chat-log" role="log" aria-label="Conversazione con l'assistente" aria-live="polite" aria-relevant="additions"></div>
+                <div class="chat-suggestions" aria-label="Esplora una categoria">
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Intimo">Intimo</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Pigiameria">Pigiameria</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Biancheria">Biancheria</button>
+                    <button type="button" data-chat-prompt="Vorrei informazioni sulla categoria Bambino">Bambino</button>
+                </div>
+                <p id="chat-status" class="chat-small chat-status" role="status"></p>
+                <button id="chat-retry" class="chat-text-button" type="button" hidden>Riprova la stessa domanda</button>
+                <form id="chat-message-form" class="chat-message-form">
+                    <label class="chat-visually-hidden" for="chat-message">La tua domanda</label>
+                    <input id="chat-message" name="message" placeholder="Scrivi una domanda…" maxlength="2000" autocomplete="off" required>
+                    <button id="chat-send" class="chat-primary-button" type="submit">Invia</button>
+                </form>
+            </div>
+        </div>
+        <footer class="chat-footer">DEMO · prodotti, prezzi e disponibilità fittizi, solo per simulazioni</footer>
+    </section>
+</body>
+</html>

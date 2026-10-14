@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "category_id": 1,
+  "products": [
+    {
+      "id": 1001,
+      "category_id": 1,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Reggiseno Aurora",
+      "description": "Reggiseno dimostrativo con coppe morbide, senza ferretto e spalline regolabili.",
+      "brand": "Linea Demo",
+      "price_eur": 24.9,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero",
+        "Cipria"
+      ],
+      "materials": [
+        "95% cotone",
+        "5% elastan"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 1002,
+      "category_id": 1,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Slip Comfort",
+      "description": "Slip dimostrativo a vita media con bordi morbidi.",
+      "brand": "Linea Demo",
+      "price_eur": 9.9,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero",
+        "Beige"
+      ],
+      "materials": [
+        "95% cotone",
+        "5% elastan"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    },
+    {
+      "id": 1003,
+      "category_id": 1,
+      "is_demo": true,
+      "demo_notice": "Dati fittizi per simulazione: non sono articoli, prezzi o disponibilità reali del negozio.",
+      "name": "Canotta Essenziale",
+      "description": "Canotta dimostrativa a spalla larga, senza cuciture laterali.",
+      "brand": "Linea Demo",
+      "price_eur": 16.9,
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Bianco",
+        "Nero"
+      ],
+      "materials": [
+        "100% cotone"
+      ],
+      "availability": "disponibile (simulazione; combinazioni taglia/colore da verificare)"
+    }
+  ]
+}
