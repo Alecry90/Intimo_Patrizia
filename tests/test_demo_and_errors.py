@@ -126,7 +126,7 @@ class DemoAndErrorTests(unittest.TestCase):
     def test_invalid_ollama_output_falls_back_without_losing_question(self):
         with patch.object(self.interpreter, "interpret", return_value={"intent": "product", "category_ids": [True]}):
             response = self.ask("Prodotto 1001")
-        self.assertEqual(response["status"], "degraded")
+        self.assertEqual(response["status"], "ok")
         self.assertFalse(response["llm_available"])
         self.assertTrue(response["saved"])
         self.assertIn("Reggiseno Aurora", response["reply"])

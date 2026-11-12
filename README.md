@@ -43,9 +43,19 @@ Per controllare i modelli disponibili:
 ollama list
 ```
 
-Ollama deve essere avviato per usare il modello. Se è spento, va in timeout o
-produce un risultato non valido, la chat mostra il limite e continua con la
-ricerca deterministica per categorie, ID e nomi presenti nel catalogo.
+Ollama viene consultato per ogni nuovo turno, anche quando il prodotto è già
+riconoscibile dal nome. Il backend precarica il modello in background e lo
+mantiene in memoria per 30 minuti. Una risposta malformata o un errore transitorio
+consentono al massimo un secondo tentativo entro lo stesso budget di tempo.
+Se Ollama non risponde, il cliente riceve comunque i dati verificati del catalogo:
+gli errori tecnici restano nei log, senza avvisi «Ollama non disponibile» nella chat.
+Una richiesta ambigua continua a chiedere un chiarimento, senza inventare prezzi.
+
+Puoi chiedere più informazioni e nominare più prodotti nello stesso messaggio,
+ad esempio `Ciao, quanto costa Aurora e che taglie ha Luna?`. Ogni risposta
+associa i dati al prodotto corretto e mantiene i collegamenti alle rispettive
+schede. Saluti e ringraziamenti ricevono una risposta pertinente. I fatti
+commerciali sono sempre composti da dati del catalogo, non generati liberamente.
 
 ### Configurazione facoltativa
 
@@ -63,6 +73,7 @@ python -m backend.server
 | `OLLAMA_MODEL` | `qwen2.5:latest` | Nome di un modello già presente in Ollama. |
 | `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Indirizzo del servizio Ollama. |
 | `OLLAMA_TIMEOUT` | `30` | Timeout della chiamata al modello, in secondi. |
+| `OLLAMA_KEEP_ALIVE` | `30m` | Permanenza del modello in memoria dopo le chiamate. |
 | `CUSTOMER_DATA_PATH` | `data/runtime/customers.json` nella cartella del sito | Percorso del JSON privato dei clienti. |
 | `COOKIE_SECURE` | `false` | Impostare `true` quando il sito viene servito tramite HTTPS. |
 | `PORT` | `8000` | Porta del server locale, in ascolto su `127.0.0.1`. |
@@ -181,6 +192,7 @@ evitando risposte basate su un assortimento parziale.
 | `chat.js` | Sessione, messaggi, riepilogo interessi, stato di attesa, retry e cancellazione nel browser. |
 | `backend/server.py` | FastAPI, cookie, API pubbliche del catalogo, endpoint della chat e file pubblici consentiti. |
 | `backend/chat_graph.py` | Grafo LangGraph, interpretazione Ollama, routing e risposte verificate. |
+| `backend/ollama_interpreter.py` | API Ollama con JSON compatto, connessioni riusate, precaricamento e retry limitato. |
 | `backend/question_answering.py` | Individuazione del dato richiesto, risposte mirate e collegamenti costruiti dal codice. |
 | `backend/product_agent.py` | Lettura e validazione deterministica del catalogo. |
 | `backend/customer_store.py` | Archivio JSON, consenso, deduplicazione e conteggi degli interessi. |
@@ -211,7 +223,8 @@ Oppure, con l'ambiente del workspace:
 I test usano file temporanei, cataloghi di prova e un interprete sostitutivo:
 non richiedono Ollama attivo e non inseriscono prodotti nel catalogo del negozio.
 
-La verifica di questa versione ha superato 118 test Python. Le prove con
+La suite include regressioni per errori Ollama silenziosi, domande multiple,
+campi associati al rispettivo prodotto, saluti e contesto. Le prove con
 Ollama reale hanno controllato prezzo per nome, taglie, colori nel turno
 successivo, materiale mancante, articolo non disponibile e richiesta ambigua.
 Sono state verificate anche le API pubbliche e la navigazione del frontend

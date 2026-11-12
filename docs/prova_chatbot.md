@@ -78,6 +78,10 @@ costituiscono un account verificato.
 | `Quali sono le mie preferenze?` | Conteggi osservati con consenso; l'interrogazione del profilo non aggiunge un interesse prodotto. |
 | `Non mi interessa il prodotto 1001` | Nessun incremento positivo degli interessi per la domanda; può essere conservata se è attivo il salvataggio. |
 | `Voglio parlare con un operatore` | Indicazione di contattare il negozio dai recapiti del sito, senza affermare che lo staff sia stato avvisato. |
+| `Ciao, quanto costa il reggiseno Aurora?` | Saluto e prezzo di Aurora, con link; nessun errore tecnico se il modello non risponde. |
+| `Quanto costa Aurora e che taglie ha Luna?` | Prezzo di Aurora e taglie di Luna in due risposte distinte, con i due link corretti. |
+| `Quanto costano Aurora e Luna?` | I due prezzi associati ai rispettivi nomi, senza chiedere di sceglierne uno. |
+| `Grazie mille!` | Ringraziamento pertinente, senza ripetere una scheda o segnalare un prodotto inesistente. |
 
 Le risposte dipendono dalla domanda e dai dati selezionati dai tool. Il
 modello interpreta la richiesta; Python valida le citazioni, risolve il
@@ -120,7 +124,7 @@ non è necessario danneggiare il catalogo o l'archivio dei clienti.
 
 | Caso | Risultato atteso |
 | --- | --- |
-| Ollama non attivo o risposta non valida | Avviso del limite; restano utilizzabili le regole per categorie, ID e nomi del catalogo. |
+| Ollama non attivo o risposta non valida | Recupero silenzioso dai dati del catalogo; nessun errore tecnico nella risposta. Se mancano riferimenti precisi, chiede un chiarimento. |
 | ID inesistente | Messaggio leggibile, senza eccezione mostrata al cliente o sostituzione arbitraria del prodotto. |
 | Nome ambiguo o domanda senza oggetto | Domanda di chiarimento per scegliere la categoria o il nome, con link ai candidati quando disponibili. |
 | Campo mancante (`3003`) | Indicazione dell'informazione mancante; l'LLM non completa il dato. |

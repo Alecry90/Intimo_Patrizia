@@ -3,170 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Intimo Patrizia - Negozio di abbigliamento intimo, biancheria, pigiameria e articoli per bambino a Bari.">
-    <title>Intimo Patrizia | Bari</title>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Intimo Patrizia a Bari: intimo, pigiameria e biancheria per la famiglia. Scopri le collezioni e passa a trovarci in Via Ettore Fieramosca, 94/96.">
+    <meta name="theme-color" content="#713e49">
+    <title>Intimo Patrizia | Il piacere di sentirsi a casa, a Bari</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/script.js" defer></script>
+    <script src="/chat.js" defer></script>
 </head>
 <body>
-
-    <!-- Header & Navigation -->
+    <a href="#main-content" class="catalogue-skip-link">Vai al contenuto</a>
+    <div class="welcome-bar"><div class="container"><span>Il tuo negozio di fiducia, a Bari.</span><a href="tel:+390805794644">Parliamone insieme · 080 579 4644 <span aria-hidden="true">↗</span></a></div></div>
     <header class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
-                <img src="images/LOGO%20INTIMO%20PATRIZIA.png" alt="Logo Intimo Patrizia" class="logo-img">
-            </a>
-            <nav class="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#chi-siamo" class="nav-link">Chi Siamo</a></li>
-                    <li><a href="#collezioni" class="nav-link">Collezioni</a></li>
+            <a href="/" class="wordmark brand-logo" aria-label="Intimo Patrizia, home"><img src="/images/LOGO%20INTIMO%20PATRIZIA.png" alt="Intimo Patrizia" width="1536" height="1024"></a>
+            <nav class="nav-menu" aria-label="Navigazione principale">
+                <ul class="nav-list" id="main-navigation">
+                    <li><a href="#collezioni" class="nav-link">Le collezioni</a></li>
+                    <li><a href="#chi-siamo" class="nav-link">Il nostro negozio</a></li>
                     <li><a href="/catalogo" class="nav-link">Catalogo</a></li>
-                    <li><a href="#contatti" class="nav-link">Contatti</a></li>
+                    <li><a href="#contatti" class="nav-link nav-contact">Vieni a trovarci <span aria-hidden="true">↗</span></a></li>
                 </ul>
             </nav>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="hamburger" type="button" aria-controls="main-navigation" aria-expanded="false" aria-label="Apri il menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
         </div>
     </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">L'eleganza del comfort<br>ogni giorno.</h1>
-                <p class="hero-subtitle">Intimo, biancheria e pigiameria per tutta la famiglia, nel cuore di Bari.</p>
-                <a href="#collezioni" class="btn btn-primary">Scopri le Collezioni</a>
-            </div>
-        </section>
-
-        <!-- Chi Siamo Section -->
-        <section id="chi-siamo" class="chi-siamo section-padding">
-            <div class="container about-container">
-                <div class="about-text fade-in-scroll">
-                    <h2 class="section-title">La Nostra Storia</h2>
-                    <p>Benvenuti da <strong>Intimo Patrizia</strong>. Da anni vestiamo i vostri momenti di relax e intimità con capi selezionati per qualità, comfort ed eleganza.</p>
-                    <p>Situati a Bari in Via Ettore Fieramosca, offriamo un'ampia scelta di marchi per donna, uomo e bambino. La nostra missione è farvi sentire sempre a vostro agio, proponendo tessuti pregiati e vestibilità perfette per ogni esigenza.</p>
-                    <p>Che tu stia cercando una raffinata parure, un caldo pigiama per l'inverno o capi delicati per i più piccoli, il nostro staff saprà consigliarti con professionalità e cortesia.</p>
+    <main id="main-content">
+        <section id="home" class="hero" aria-labelledby="hero-heading">
+            <div class="container hero-layout">
+                <div class="hero-content">
+                    <p class="eyebrow"><span class="small-line" aria-hidden="true"></span>UN PICCOLO MONDO DI COMFORT</p>
+                    <h1 id="hero-heading">Le cose belle<br>ti fanno sentire<br><em>a casa.</em></h1>
+                    <p class="hero-subtitle">Un intimo che ti somiglia, un pigiama da amare, un dettaglio per la tua casa. Da Patrizia trovi il comfort di ogni giorno e il piacere di scegliere insieme.</p>
+                    <div class="hero-actions"><a href="#collezioni" class="btn btn-primary">Scopri le collezioni <span aria-hidden="true">→</span></a><a href="#chi-siamo" class="text-link">Piacere, siamo Intimo Patrizia <span aria-hidden="true">↗</span></a></div>
+                    <p class="hero-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Ci trovi a Bari, in Via Ettore Fieramosca.</p>
                 </div>
-                <div class="about-image fade-in-scroll">
-                    <!-- Segnaposto per foto del negozio -->
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Interno del negozio Intimo Patrizia">
+                <div class="hero-visual">
+                    <img class="hero-photo" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="Tessuti e capi in tonalità naturali, ispirazione per il comfort quotidiano" width="720" height="800" fetchpriority="high">
+                    <span class="hero-image-label">I piccoli piaceri di ogni giorno</span>
+                    <div class="hero-note"><span class="note-heart" aria-hidden="true">♡</span><div><strong>La scelta giusta comincia<br>da qualcuno che ti ascolta.</strong><span>Ti aspettiamo in negozio.</span></div></div>
                 </div>
             </div>
         </section>
-
-        <!-- Collezioni / Categorie Section -->
-        <section id="collezioni" class="collezioni section-padding bg-light">
+        <div class="care-strip"><div class="container care-items"><p><span aria-hidden="true">♡</span> Un consiglio, con il cuore</p><p><span aria-hidden="true">✧</span> Attenzione ai piccoli dettagli</p><p><span aria-hidden="true">⌂</span> Per te, la casa e la famiglia</p></div></div>
+        <section id="collezioni" class="collezioni section-padding" aria-labelledby="collections-heading">
             <div class="container">
-                <h2 class="section-title text-center fade-in-scroll">I Nostri Prodotti</h2>
+                <div class="section-heading"><div><p class="eyebrow">A OGNI MOMENTO, LA SUA MORBIDEZZA</p><h2 id="collections-heading" class="section-title">Cosa ti fa stare bene?</h2></div><a href="/catalogo" class="text-link">Esplora tutto il catalogo <span aria-hidden="true">↗</span></a></div>
+                <p class="section-intro">Dalle prime ore del mattino ai momenti di relax. Trova il tuo piccolo comfort quotidiano.</p>
                 <div class="grid-collezioni">
-                    
-                    <!-- Card 1 -->
-                    <a href="/catalogo?categoria=1" class="card collection-link fade-in-scroll">
-                        <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80" alt="Abbigliamento Intimo" class="product-image">
-                        </div>
-                        <div class="card-content">
-                            <h3>Intimo</h3>
-                            <p>Eleganza e comfort per tutti i giorni o per le occasioni speciali. Capi in pizzo, seta e cotone pregiato.</p>
-                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 2 -->
-                    <a href="/catalogo?categoria=2" class="card collection-link fade-in-scroll" style="transition-delay: 0.1s;">
-                        <div class="card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1560969562-b43d27eb9543?auto=format&fit=crop&w=600&q=80" alt="Pigiameria e Homewear" class="product-image">
-                        </div>
-                        <div class="card-content">
-                            <h3>Pigiameria</h3>
-                            <p>Coccolati con i nostri pigiami e capi homewear. Materiali caldi per l'inverno e freschi per l'estate.</p>
-                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 3 -->
-                    <a href="/catalogo?categoria=3" class="card collection-link fade-in-scroll" style="transition-delay: 0.2s;">
-                        <div class="card-img-wrapper">
-                            <img src="images/biancheria.jpg" alt="Biancheria per la Casa" class="product-image">
-                        </div>
-                        <div class="card-content">
-                            <h3>Biancheria</h3>
-                            <p>Vesti la tua casa con stile. Lenzuola, asciugamani e corredi delle migliori marche per la tua zona notte e bagno.</p>
-                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
-                        </div>
-                    </a>
-
-                    <!-- Card 4 -->
-                    <a href="/catalogo?categoria=4" class="card collection-link fade-in-scroll" style="transition-delay: 0.3s;">
-                        <div class="card-img-wrapper">
-                            <img src="images/binbo.jpg" alt="Reparto Bambino" class="product-image">
-                        </div>
-                        <div class="card-content">
-                            <h3>Bambino</h3>
-                            <p>Tessuti delicati e sicuri per la pelle dei più piccoli. Intimo, pigiamini e accessori per neonati e bambini.</p>
-                            <span class="collection-cta">Esplora il catalogo <span aria-hidden="true">&rarr;</span></span>
-                        </div>
-                    </a>
-
+                    <a href="/catalogo?categoria=1" class="card collection-link fade-in-scroll"><div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Dettaglio di un capo in morbido cotone" width="600" height="750" loading="lazy"><span class="collection-number">01 / PER TE</span></div><div class="card-content"><div class="collection-title-row"><h3>Intimo</h3><span class="collection-arrow" aria-hidden="true">↗</span></div><p>La bellezza di sentirti a tuo agio, ogni giorno.</p><span class="collection-cta">Scopri la collezione <span aria-hidden="true">→</span></span></div></a>
+                    <a href="/catalogo?categoria=2" class="card collection-link fade-in-scroll"><div class="card-img-wrapper"><img src="https://images.unsplash.com/photo-1560969562-b43d27eb9543?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Ispirazione per i momenti di riposo" width="600" height="750" loading="lazy"><span class="collection-number">02 / IL TUO RELAX</span></div><div class="card-content"><div class="collection-title-row"><h3>Pigiameria</h3><span class="collection-arrow" aria-hidden="true">↗</span></div><p>Una coccola da indossare, anche a fine giornata.</p><span class="collection-cta">Scopri la collezione <span aria-hidden="true">→</span></span></div></a>
+                    <a href="/catalogo?categoria=3" class="card collection-link fade-in-scroll"><div class="card-img-wrapper"><img src="/images/biancheria.jpg" alt="Biancheria colorata sugli scaffali del negozio" width="1152" height="2048" loading="lazy"><span class="collection-number">03 / LA TUA CASA</span></div><div class="card-content"><div class="collection-title-row"><h3>Biancheria</h3><span class="collection-arrow" aria-hidden="true">↗</span></div><p>Dettagli che rendono più tuoi gli spazi che ami.</p><span class="collection-cta">Scopri la collezione <span aria-hidden="true">→</span></span></div></a>
+                    <a href="/catalogo?categoria=4" class="card collection-link fade-in-scroll"><div class="card-img-wrapper"><img src="/images/binbo.jpg" alt="La vetrina dedicata ai più piccoli da Intimo Patrizia" width="1152" height="2048" loading="lazy"><span class="collection-number">04 / I PIÙ PICCOLI</span></div><div class="card-content"><div class="collection-title-row"><h3>Bambino</h3><span class="collection-arrow" aria-hidden="true">↗</span></div><p>Piccole attenzioni per accompagnare la crescita.</p><span class="collection-cta">Scopri la collezione <span aria-hidden="true">→</span></span></div></a>
                 </div>
             </div>
         </section>
+        <section id="chi-siamo" class="chi-siamo section-padding" aria-labelledby="about-heading">
+            <div class="container about-container">
+                <figure class="about-image fade-in-scroll"><img src="/images/INSEGNA%20INTIMO%20PATRIZIA.jpg" alt="L'ingresso di Intimo Patrizia in Via Ettore Fieramosca a Bari" width="720" height="720" loading="lazy"><figcaption>La nostra porta è qui, nel cuore di Bari.</figcaption></figure>
+                <div class="about-text fade-in-scroll"><p class="eyebrow">IL TUO NEGOZIO, LE TUE PERSONE</p><h2 id="about-heading" class="section-title">Prima di un capo,<br>scegli un po’ di <em>attenzione.</em></h2><p>Ci sono acquisti che cominciano con una chiacchierata. Una taglia da capire, un tessuto da toccare, un regalo da scegliere con cura.</p><p>Da <strong>Intimo Patrizia</strong> ci piace partire da qui: ascoltare quello che cerchi e aiutarti a trovare ciò che ti fa sentire bene. Per te, per la tua casa e per chi ami.</p><div class="about-signature"><span aria-hidden="true">♡</span><p>Entra pure, sentiti a casa.<br><strong>Ti aspettiamo da Patrizia.</strong></p></div><a href="#contatti" class="text-link">Facciamo due chiacchiere in negozio <span aria-hidden="true">→</span></a></div>
+            </div>
+        </section>
+        <section class="help-section section-padding" aria-labelledby="help-heading"><div class="container help-layout"><div><p class="eyebrow">UN DUBBIO? SIAMO QUI.</p><h2 id="help-heading" class="section-title">Scegli con un consiglio in più.</h2><p>Per esplorare il catalogo puoi chiedere al nostro assistente virtuale.<br>Per parlare con noi, basta una telefonata o una visita in negozio.</p></div><div class="help-actions"><button class="btn btn-primary" type="button" data-open-chat>Chiedi all’assistente <span aria-hidden="true">↗</span></button><a href="tel:+390805794644" class="text-link">Chiama il negozio · 080 579 4644</a></div></div></section>
+        <section id="contatti" class="visit-section" aria-labelledby="visit-heading"><div class="container visit-layout"><div><p class="eyebrow">CI VEDIAMO A BARI</p><h2 id="visit-heading">Le cose belle si scelgono<br><em>anche di persona.</em></h2><p>Passa a trovarci. Ci prendiamo il tempo di scegliere insieme.</p></div><div class="visit-details"><p class="visit-address">Via Ettore Fieramosca, 94/96<br><span>70123 Bari (BA)</span></p><a class="btn btn-light" href="https://www.google.com/maps/search/?api=1&amp;query=Via+Ettore+Fieramosca+94+96+Bari" target="_blank" rel="noopener noreferrer">Come raggiungerci <span aria-hidden="true">↗</span></a><a class="visit-phone" href="tel:+390805794644">Oppure chiamaci: 080 579 4644</a></div></div></section>
     </main>
-
-    <!-- Footer & Contatti -->
-    <footer id="contatti" class="footer">
-        <div class="container footer-container">
-            <div class="footer-info">
-                <img src="images/LOGO%20INTIMO%20PATRIZIA.png" alt="Logo Intimo Patrizia" class="footer-logo">
-                <p>La tua boutique di fiducia a Bari per l'intimo e la biancheria.</p>
-            </div>
-            
-            <div class="footer-contact">
-                <h4>Vieni a trovarci</h4>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> Via Ettore Fieramosca, 94/96, 70123 Bari (BA)</li>
-                    <li><i class="fas fa-phone-alt"></i> <a href="tel:+390805794644">080 579 4644</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-social">
-                <h4>Seguici sui Social</h4>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/profile.php?id=100063544722123" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Intimo Patrizia. Tutti i diritti riservati.</p>
-        </div>
-    </footer>
-
+    <footer class="footer"><div class="container footer-container"><div class="footer-info"><a href="/" class="wordmark brand-logo"><img src="/images/LOGO%20INTIMO%20PATRIZIA.png" alt="Intimo Patrizia" width="1536" height="1024"></a><p>Il comfort che cerchi.<br>L’attenzione che meriti.</p></div><div><h3>Esplora</h3><a href="#collezioni">Le nostre collezioni</a><a href="/catalogo">Il catalogo</a><a href="#chi-siamo">Il nostro negozio</a></div><div><h3>Restiamo vicini</h3><a href="tel:+390805794644">080 579 4644</a><a href="https://www.facebook.com/profile.php?id=100063544722123" target="_blank" rel="noopener noreferrer">Seguici su Facebook ↗</a><p>Via Ettore Fieramosca, 94/96 · Bari</p></div></div><div class="container footer-bottom"><p>© 2026 Intimo Patrizia. Tutti i diritti riservati.</p><span>Con cura, a Bari.</span></div></footer>
     <!-- Assistente del negozio: servito insieme al backend Python -->
     <button id="chat-toggle" class="chat-toggle" type="button" aria-controls="shop-chat" aria-expanded="false">
-        <span aria-hidden="true">✦</span> Chiedi a Patrizia
+        <span aria-hidden="true">&#10022;</span> Chiedi a Patrizia
     </button>
     <section id="shop-chat" class="shop-chat" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
         <header class="chat-header">
             <div>
-                <p class="chat-eyebrow">Intimo Patrizia</p>
-                <h2 id="chat-title">Il tuo assistente</h2>
+                <p class="chat-eyebrow">INTIMO PATRIZIA · AL TUO FIANCO</p>
+                <h2 id="chat-title">Un consiglio per te</h2>
             </div>
             <button id="chat-close" class="chat-icon-button" type="button" aria-label="Chiudi la chat">×</button>
         </header>
@@ -176,19 +88,19 @@
                 <button id="chat-reconnect" class="chat-text-button" type="button">Riprova la connessione</button>
             </div>
             <form id="chat-identity-form" class="chat-identity-form">
-                <p>Benvenuto! Come possiamo aiutarti?</p>
-                <p class="chat-small">Inserisci nome ed email per questa sessione. Sono dati dichiarati da te: non creiamo un account e non verifichiamo l'email.</p>
+                <p>Ciao, che bello trovarti qui!</p>
+                <p class="chat-small">Come ti chiami? Lasciaci nome ed email per iniziare la conversazione con l’assistente virtuale. Non serve creare un account e l’email non viene verificata.</p>
                 <label for="chat-name">Nome</label>
                 <input id="chat-name" name="name" autocomplete="given-name" maxlength="80" required>
                 <label for="chat-email">Email</label>
                 <input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" required>
                 <label class="chat-check" for="chat-remember">
                     <input id="chat-remember" name="remember" type="checkbox">
-                    <span>Salva le mie domande e i miei interessi per personalizzare questa chat.</span>
+                    <span>Ricorda le mie domande e i miei interessi per le prossime visite.</span>
                 </label>
-                <p class="chat-small">Facoltativo: il server del negozio conserva nome, email, domande e conteggi degli argomenti in un file JSON locale. Puoi usare la chat anche senza salvare e cancellare i dati dal pulsante nella chat. Non inserire password o dati sensibili.</p>
+                <p class="chat-small">Scegli tu: senza questa opzione i dati restano solo nella sessione temporanea. Se la attivi, nome, email, domande e interessi vengono conservati dal negozio e puoi eliminarli dalla chat in qualsiasi momento. Non inserire password o dati sensibili.</p>
                 <p id="chat-identity-error" class="chat-error" role="alert" hidden></p>
-                <button id="chat-start" class="chat-primary-button" type="submit">Inizia la chat</button>
+                <button id="chat-start" class="chat-primary-button" type="submit">Parliamone insieme <span aria-hidden="true">→</span></button>
             </form>
             <div id="chat-conversation" hidden>
                 <div class="chat-customer-bar">
@@ -220,8 +132,5 @@
         <footer class="chat-footer">DEMO · prodotti, prezzi e disponibilità fittizi, solo per simulazioni</footer>
     </section>
 
-    <!-- Custom JavaScript -->
-    <script src="script.js"></script>
-    <script src="chat.js" defer></script>
 </body>
 </html>

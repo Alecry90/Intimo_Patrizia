@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import os
 import logging
+import threading
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated
 from urllib.parse import urlsplit
@@ -21,6 +23,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, field_validator
 
 from .chat_graph import ChatService
+from .ollama_interpreter import OllamaInterpreter
 from .customer_store import CustomerSessionError, CustomerStore, CustomerStoreError, QuestionConflictError
 from .product_agent import ProductAgent
 from .question_answering import product_url
@@ -60,7 +63,20 @@ def create_app(store: CustomerStore | None = None, interpreter=None,
     )
     products = products or ProductAgent()
     service = ChatService(store, products, interpreter)
-    app = FastAPI(title="Intimo Patrizia — chatbot gruppo 4", docs_url=None, redoc_url=None, openapi_url=None)
+
+    @asynccontextmanager
+    async def lifespan(app):
+        if isinstance(service.interpreter, OllamaInterpreter):
+            threading.Thread(target=service.interpreter.warmup, daemon=True,
+                             name="patrizia-model-warmup").start()
+        try:
+            yield
+        finally:
+            if isinstance(service.interpreter, OllamaInterpreter):
+                service.interpreter.close()
+
+    app = FastAPI(title="Intimo Patrizia — chatbot gruppo 4", docs_url=None, redoc_url=None,
+                  openapi_url=None, lifespan=lifespan)
     app.state.store = store
     app.state.chat_service = service
 

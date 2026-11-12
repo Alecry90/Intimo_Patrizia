@@ -32,7 +32,8 @@ SEARCH_STOPWORDS = frozenset(
     "costa costano costo taglia taglie colore colori materiale materiali grazie "
     "favore parlami avete hai ha hanno sono disponibile disponibili disponibilità disponibilita "
     "potete potrebbe riesci sapete vorremmo mostrarmi descrizione descrivi trova trovare "
-    "fatto fatta fatti fatte tessuto tessuti composizione misura misure euro euros".split()
+    "fatto fatta fatti fatte tessuto tessuti composizione misura misure euro euros "
+    "ciao salve buongiorno buonasera buonanotte ehi allora invece poi gentilmente".split()
 )
 
 # Piccolo vocabolario esplicito: non si usano correzioni creative del modello.

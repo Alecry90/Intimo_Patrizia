@@ -253,7 +253,7 @@ class QuestionAnswerTests(unittest.TestCase):
         self.llm.fail = True
         answer = self.ask("Quanto costa il Reggiseno Aurora?")
         self.assertFalse(answer["llm_available"])
-        self.assertEqual(answer["status"], "degraded")
+        self.assertEqual(answer["status"], "ok")
         self.assertIn("Aurora", answer["reply"])
         self.assertIn("24,90", answer["reply"])
         self.assertNotIn("Taglie:", answer["reply"])

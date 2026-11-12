@@ -72,7 +72,7 @@
     function showConnectionProblem() {
         connected = false;
         el('chat-connection').hidden = false;
-        el('chat-connection-text').textContent = 'Server della chat non raggiungibile. Avvia il server Python seguendo il README (python -m backend.server), poi apri http://127.0.0.1:8000. La chat non funziona aprendo index.html direttamente o con Live Server.';
+        el('chat-connection-text').textContent = 'L’assistente non è raggiungibile in questo momento. Riprova tra poco, oppure chiama il negozio allo 080 579 4644: saremo felici di aiutarti.';
     }
 
     function showIdentityError(text) {
@@ -179,7 +179,7 @@
             ? 'Salvataggio di domande e interessi attivo per questa sessione.'
             : 'Salvataggio di domande e interessi disattivato.';
         if (!log.children.length) {
-            addMessage('assistant', 'Ciao! Chiedimi il prezzo, le taglie o i materiali di un prodotto, oppure esplora una categoria. Ad esempio: Quanto costa il Reggiseno Aurora? Il catalogo ? dimostrativo.');
+            addMessage('assistant', 'Ciao! Chiedimi il prezzo, le taglie o i materiali di un prodotto, oppure esplora una categoria. Ad esempio: Quanto costa il Reggiseno Aurora? Il catalogo è dimostrativo.');
         }
         renderPreferences(null);
         setBusy(false);
@@ -237,7 +237,6 @@
             const notices = [];
             if (data.status === 'human_required') notices.push('È necessario contattare il negozio: non è stata inviata alcuna richiesta allo staff.');
             if (data.status === 'clarification') notices.push('Servono più informazioni per proseguire.');
-            if (data.llm_available === false) notices.push('LLM locale non disponibile: risposta basata sulle regole e sul catalogo.');
             if (data.preferences_available === false) notices.push('Preferenze temporaneamente non disponibili: resta visibile l’ultimo riepilogo letto.');
             const retrySave = data.status === 'human_required' && data.saved === false && customer && customer.remember;
             if (retrySave) notices.push('La domanda non è stata salvata. Puoi riprovare lo stesso invio quando il problema è risolto.');
@@ -254,7 +253,7 @@
             } else {
                 const reason = error.name === 'AbortError' ? 'La risposta ha richiesto troppo tempo.'
                     : error instanceof ApiError ? error.message : 'Non è stato possibile ricevere la risposta.';
-                status(`${reason} Puoi riprovare la stessa domanda: l’identificativo rimane invariato per evitare doppi salvataggi.`);
+                status(`${reason} Puoi riprovare a inviare la stessa domanda senza salvarla due volte.`);
                 el('chat-retry').hidden = false;
                 if (!(error instanceof ApiError) || error.status === 404 || error.status === 0) showConnectionProblem();
             }

@@ -37,7 +37,7 @@ flowchart TD
         ROUTE -->|"sì"| HUMAN --> END
     end
 
-    LLM["Ollama / ChatOllama<br/>qwen2.5:latest predefinito<br/>interpreta; non scrive dati commerciali"]
+    LLM["Ollama / API HTTP locale<br/>qwen2.5:latest predefinito<br/>interpreta; non scrive dati commerciali"]
     TOOL["ProductAgent<br/>tool locali condivisi e validazione"]
     CATALOG[("data/catalog.json<br/>manifest e products_file")]
     SOURCES[("data/categories/*.json<br/>4 file, 12 prodotti demo")]
@@ -82,13 +82,18 @@ dopo il prezzo di Aurora, `E in quali colori?` riguarda ancora Aurora.
 | `response_agent` | Usa `backend/question_answering.py` per rispondere al dato chiesto, collegare la scheda pertinente, segnalare dati mancanti o chiedere quale nome si intende. Per una consultazione esplicita del catalogo elenca i nomi trovati con link. Gestisce anche il riepilogo degli interessi. |
 | `human_handoff` | Restituisce `human_required`, il motivo e l'indicazione di usare i contatti del negozio. |
 
-Ollama riceve la domanda e l'elenco di ID/nomi delle categorie. I campi
+Ollama riceve la domanda, l'elenco di ID/nomi delle categorie e il contesto breve
+con ID/campi dei prodotti già verificati. I campi
 nome/email del profilo e il JSON completo dei clienti non sono inclusi nel
 prompt. L'interpretazione restituita dal modello non può autorizzare una
 scrittura, selezionare un altro cliente o rendere esistente un prodotto.
-Le proposte `product_query`, `requested_fields` e `field_evidence` vengono
-confrontate con il testo della domanda; non sono una risposta libera da
-mostrare al cliente. Il codice conserva la responsabilità dei fatti.
+Il piano JSON compatto contiene intento, riferimento al turno precedente e
+richieste con testo, query, campi e categoria. Il codice espande il piano nei
+campi interni `product_query`, `requested_fields` e `field_evidence` e verifica
+le citazioni nella domanda. Le suddivisioni deterministiche già riconosciute
+non vengono eliminate da un piano incompleto del modello. Il piano non è una
+risposta libera da mostrare al cliente: il codice conserva la responsabilità
+dei fatti e costruisce i collegamenti.
 
 Le regole non ambigue sono nel codice: tipi e limiti degli input, categorie
 valide, presenza degli ID nel testo, esistenza delle schede, opt-in, conteggi,
@@ -294,7 +299,7 @@ a un altro indirizzo. Il browser usa `textContent` per mostrare i messaggi.
 | Campo del catalogo mancante | Il dato viene segnalato come non disponibile, senza completarlo con l'LLM. |
 | Articolo non disponibile | La risposta riporta la disponibilità della scheda; non conferma prenotazioni o ordini. |
 | Domanda senza oggetto chiaro o nome ambiguo | `clarification`: richiesta di indicare la categoria o scegliere il nome, con link ai candidati quando disponibili. L'ID non è obbligatorio. Il messaggio seguente avvia un nuovo turno. |
-| Ollama assente, timeout o JSON non valido | Fallback deterministico, `llm_available: false` e stato `degraded`; il widget segnala il limite. |
+| Ollama assente, timeout o JSON non valido | Recupero dai dati verificati; `llm_available: false` resta diagnostico. Lo stato rimane `ok` o `clarification` secondo l'esito e il widget non mostra errori tecnici del modello. |
 | Manifest/file di categoria non valido o errore nel recupero prodotti | In chat `human_required` con richiesta di controllo del negozio; nelle API pubbliche HTTP 503 e messaggio leggibile. Nessun catalogo parziale. |
 | Scrittura dell'archivio fallita durante il grafo | `saved: false`, `human_required`, messaggio di errore; nessuna conferma falsa di salvataggio. Il riepilogo precedente viene mantenuto quando è leggibile. |
 | Archivio non disponibile nell'API | Errore HTTP 503 con messaggio leggibile, senza esporre il percorso locale. Il sito resta raggiungibile anche con un archivio corrotto all'avvio, senza sostituirlo con un JSON vuoto. |
@@ -329,7 +334,7 @@ esplicito, rappresentato nello stato e nel testo mostrato al cliente.
 | `esame2/Gruppo 4/deliverables/Esame.ipynb` | Interpretazione strutturata con Ollama, tool specializzati, dati mancanti espliciti e regole deterministiche. I dataset dell'esame non diventano prodotti del negozio. |
 
 Riferimenti ufficiali consultati: [Graph API di LangGraph](https://docs.langchain.com/oss/python/langgraph/graph-api),
-[integrazione ChatOllama](https://docs.langchain.com/oss/python/integrations/chat/ollama)
+[API chat di Ollama](https://docs.ollama.com/api/chat)
 e [cookie nelle risposte FastAPI](https://fastapi.tiangolo.com/advanced/response-cookies/).
 
 L'interpretazione Ollama usa ora un JSON Schema in `format`, oltre alla

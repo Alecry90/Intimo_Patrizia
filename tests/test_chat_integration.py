@@ -60,7 +60,7 @@ class ChatIntegrationTests(unittest.TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertIn('id="chat-toggle"', response.text)
-        self.assertIn('src="chat.js"', response.text)
+        self.assertIn('src="/chat.js"', response.text)
         for path in ("/chat.js", "/style.css", "/script.js"):
             self.assertEqual(self.client.get(path).status_code, 200)
         for path in ("/data/runtime/customers.json", "/backend/customer_store.py", "/.env", "/.git/config"):
@@ -160,14 +160,14 @@ class ChatIntegrationTests(unittest.TestCase):
         self.assertTrue(data["saved"])
         self.assertEqual(data["preferences"]["category_counts"], {})
 
-    def test_ollama_failure_is_visible_and_memory_still_works(self):
+    def test_ollama_failure_keeps_semantic_status_and_memory_still_works(self):
         self.identify()
         self.interpreter.fail = True
         data = self.ask("Cerco intimo").json()
-        self.assertEqual(data["status"], "degraded")
+        self.assertEqual(data["status"], "clarification")
         self.assertFalse(data["llm_available"])
         self.assertTrue(data["saved"])
-        self.assertIn("Ollama non è disponibile", data["reply"])
+        self.assertNotRegex(data["reply"].lower(), r"ollama|\bllm\b|timeout")
         self.assertEqual(data["preferences"]["category_counts"], {"1": 1})
 
     def test_model_cannot_invent_product_id(self):

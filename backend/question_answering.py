@@ -10,7 +10,7 @@ import re
 
 
 FIELD_PATTERNS = {
-    "price_eur": r"\b(prezz\w*|cost\w*|cifra|quanto\s+(?:viene|pago|pagherei|si\s+paga))\b",
+    "price_eur": r"\b(prezz\w*|cost\w*|cifra|spend\w*|quanto\s+(?:viene|pago|pagherei|si\s+paga))\b",
     "sizes": r"\b(tagli\w*|misur\w*|dimension\w*)\b|\bin\s+(?:x{0,4}[sl]|m)\b|\bin\s+\d+(?:[-/]\d+)?\s+(?:anni|mesi)\b",
     "colors": r"\b(color\w*|nero|nera|neri|nere|bianco|bianca|bianchi|bianche|rosso|rossa|rossi|rosse|blu|rosa|verde|verdi|beige|grigio|grigia|grigi|grigie|azzurro|azzurra|cipria|panna|salvia|tortora)\b",
     "materials": r"\b(material\w*|tessut\w*|composizion\w*|cotone|seta|lana|poliestere|elastan|poliammide)\b|\b(?:di|in)\s+che\s+(?:cosa\s+)?[èe]\s+fatt\w*",
@@ -32,15 +32,70 @@ COLOR_FORMS = {
 def requested_fields(question: str, inferred: dict | None = None) -> list[str]:
     text = question.casefold()
     fields = [field for field, pattern in FIELD_PATTERNS.items() if re.search(pattern, text)]
-    if fields or not isinstance(inferred, dict):
+    if not isinstance(inferred, dict):
         return fields
     evidence = inferred.get("field_evidence", {})
     suggestions = inferred.get("requested_fields", [])
     if not isinstance(evidence, dict) or not isinstance(suggestions, list):
-        return []
-    return list(dict.fromkeys(field for field in suggestions if isinstance(field, str)
+        return fields
+    supported = [field for field in suggestions if isinstance(field, str)
         and field in FIELD_LABELS and isinstance(evidence.get(field), str)
-        and evidence[field].strip() and evidence[field].casefold() in text))
+        and evidence[field].strip() and evidence[field].casefold() in text]
+    return list(dict.fromkeys([*fields, *supported]))
+
+
+def question_segments(question: str) -> list[str]:
+    """Separa nuove domande, preservando le liste di nomi, taglie e colori."""
+    question_start = (r"(?:quanto\b|quali?\b|che\s+(?:tagli\w*|color\w*|material\w*|"
+                      r"tessut\w*|prezz\w*|marc\w*)\b|(?:di|in)\s+che\b|"
+                      r"[èe]\s+disponibil\w*\b|(?:avete|hai|c[’']\s*[èe])\b|"
+                      r"come\s+[èe]\b|com[’']\s*[èe]\b)")
+    connector = re.compile(
+        r"(?:,\s*|\s+)(?:e|ed|poi|inoltre|mentre|ma)\s+(?=" + question_start + r")"
+        r"|,\s*(?=" + question_start + r")", re.IGNORECASE,
+    )
+    segments = []
+    for sentence in re.split(r"[?;\r\n]+", question):
+        segments.extend(part.strip(" ,.!\t") for part in connector.split(sentence)
+                        if part.strip(" ,.!\t"))
+    return segments
+
+
+_GREETING = re.compile(
+    r"^\s*(ciao|buongiorno|buonasera|buona\s+sera|buon\s+giorno|salve|ehi|hey|hei)\b",
+    re.IGNORECASE,
+)
+
+
+def conversational_opening(question: str) -> str:
+    """Un saluto breve solo quando è il cliente a salutare."""
+    match = _GREETING.match(question)
+    if not match:
+        return ""
+    greeting = re.sub(r"\s+", "", match.group(1).casefold())
+    return {"buongiorno": "Buongiorno!", "buonasera": "Buonasera!",
+            "salve": "Salve!"}.get(greeting, "Ciao!")
+
+
+def pure_social_reply(question: str) -> str | None:
+    """Gestisce i turni sociali senza sottrarre domande al catalogo."""
+    text = re.sub(r"[,.!?;:\s]+", " ", question.casefold()).strip()
+    greeting = _GREETING.match(text)
+    rest = text[greeting.end():].strip() if greeting else text
+    if greeting and rest in {"", "patrizia", "a tutti", "come stai", "come va", "tutto bene"}:
+        return conversational_opening(question) + " Dimmi pure cosa cerchi: ti aiuto volentieri a scegliere."
+    if rest in {"grazie", "grazie mille", "molte grazie", "ti ringrazio", "ok grazie",
+                "va bene grazie", "perfetto grazie", "perfetto", "gentilissima", "gentilissimo"}:
+        return "Figurati, sono qui se ti serve una mano con un altro articolo!"
+    if rest in {"cosa sai fare", "che cosa sai fare", "come puoi aiutarmi", "cosa puoi fare",
+                "come funziona", "chi sei", "puoi aiutarmi", "mi aiuti"}:
+        opening = conversational_opening(question)
+        return (opening + " " if opening else "") + (
+            "Ti aiuto a trovare gli articoli e a confrontare prezzi, taglie, colori e materiali "
+            "presenti nel catalogo. Puoi farmi anche più domande insieme. "
+            "Per confermare una combinazione di taglia e colore, ti indirizzo al negozio."
+        )
+    return None
 
 
 def is_catalog_request(question: str, categories: list[dict]) -> bool:
@@ -62,7 +117,9 @@ def is_context_question(question: str) -> bool:
     remaining = set(re.findall(r"[a-zàèéìòù]+", text))
     filler = set("e ed in di che quale quali quanto quanta quanti quante come viene costa costano "
                  "sono è ha hanno avete hai lo la il li le ne un una uno sai dimmi mi puoi anche "
-                 "per favore a al alla del della sul sulla si trova va bene vorrei sapere".split())
+                 "per favore a al alla del della sul sulla si trova va bene vorrei sapere "
+                 "ciao buongiorno buonasera buon giorno buona sera salve ehi hey hei grazie patrizia "
+                 "lui lei esso essa cosa ci spenderei spendere".split())
     return not (remaining - filler)
 
 
@@ -90,7 +147,7 @@ def _money(value: int | float) -> str:
 
 
 def _requested_size(question: str) -> str | None:
-    explicit = re.search(r"\btaglia\s+([a-z0-9/-]+(?:\s+(?:anni|mesi|cm))?)\b", question, re.IGNORECASE)
+    explicit = re.search(r"\btaglia\s+((?:x{0,4}[sl]|m)(?:/(?:x{0,4}[sl]|m))?|\d+(?:[-/]\d+)?(?:\s+(?:anni|mesi|cm))?|unica)\b", question, re.IGNORECASE)
     implicit = re.search(r"\bin\s+((?:x{0,4}[sl]|m)(?:/(?:x{0,4}[sl]|m))?|\d+(?:[-/]\d+)?\s+(?:anni|mesi))\b", question, re.IGNORECASE)
     match = explicit or implicit
     return match.group(1).strip() if match else None
@@ -111,52 +168,73 @@ def _single_answer(product: dict, question: str, fields: list[str]) -> str:
                         for pattern in COLOR_FORMS.values())) or _requested_size(question) is not None
     for field in fields:
         value = product.get(field)
+        first = not parts
+        reference = f" per {name}" if first else ""
         if value in (None, "", []):
-            parts.append(f"Per {name}, il dato richiesto ({FIELD_LABELS[field]}) non è indicato nel catalogo.")
+            prefix = f"Per {name}, il dato richiesto" if first else "Il dato richiesto"
+            parts.append(f"{prefix} ({FIELD_LABELS[field]}) non è indicato nel catalogo.")
         elif field == "price_eur":
-            parts.append(f"{name} costa {_money(value)}.")
+            parts.append(f"{name} costa {_money(value)}." if first else f"Il prezzo è {_money(value)}.")
         elif field == "sizes":
             requested = _requested_size(question)
             if requested:
                 size = requested.upper() if not re.search(r"\s", requested) else requested
                 found = any(size.casefold() == item.casefold() for item in value)
-                parts.append(f"La taglia {size} {'è' if found else 'non è'} indicata per {name}. "
+                parts.append(f"La taglia {size} {'è' if found else 'non è'} indicata{reference}. "
                              f"Le taglie a catalogo sono {_join(value)}.")
             else:
-                parts.append(f"Per {name} sono indicate le taglie {_join(value)}.")
+                parts.append(f"Per {name} sono indicate le taglie {_join(value)}." if first
+                             else f"Le taglie indicate sono {_join(value)}.")
         elif field == "colors":
             mentioned = [color for color, pattern in COLOR_FORMS.items()
                          if re.search(rf"\b(?:{pattern})\b", question, re.IGNORECASE)]
             if mentioned:
                 for color in mentioned:
                     present = any(item.casefold() == color.casefold() for item in value)
-                    parts.append(f"Il colore {color.lower()} {'è' if present else 'non è'} indicato per {name}.")
+                    reference = f" per {name}" if not parts else ""
+                    parts.append(f"Il colore {color.lower()} {'è' if present else 'non è'} indicato{reference}.")
             else:
-                parts.append(f"{name} è proposto nei colori {_join(value)}.")
+                parts.append(f"{name} è proposto nei colori {_join(value)}." if first
+                             else f"I colori proposti sono {_join(value)}.")
         elif field == "materials":
-            parts.append(f"La composizione di {name} è {_join(value)}.")
+            parts.append(f"La composizione di {name} è {_join(value)}." if first
+                         else f"La composizione è {_join(value)}.")
         elif field == "availability":
             if variant_question and not re.search(r"\b(non disponibile|esaurit\w*)\b", value, re.IGNORECASE):
                 parts.append("La disponibilità della specifica combinazione taglia/colore va verificata in negozio.")
             else:
-                parts.append(f"Per {name} il catalogo indica: {value}.")
+                parts.append(f"Per {name} il catalogo indica: {value}." if first
+                             else f"Per la disponibilità, il catalogo indica: {value}.")
         elif field == "brand":
-            parts.append(f"La marca di {name} è {value}.")
+            parts.append(f"La marca di {name} è {value}." if first else f"La marca è {value}.")
         elif field == "description":
-            parts.append(f"{name}: {value}")
+            parts.append(f"{name}: {value}" if first else str(value))
     if ("sizes" in fields or "colors" in fields) and "availability" not in fields:
         # La presenza fra le opzioni non è la disponibilità di una variante.
         if variant_question or re.search(r"\b(avete|disponibil\w*)\b", question, re.IGNORECASE):
             parts.append("La disponibilità della combinazione taglia/colore va verificata in negozio.")
-    return " ".join(parts)
+    reply = " ".join(parts)
+    return reply if name in reply else f"{name}: {reply}"
 
 
 def answer_products(question: str, products: list[dict], fields: list[str], *,
-                    catalog_request: bool = False, explicit_selection: bool = False) -> dict:
+                    catalog_request: bool = False, explicit_selection: bool = False,
+                    product_questions: dict[int, str] | None = None,
+                    product_fields: dict[int, list[str]] | None = None) -> dict:
     """Nessuna scheda completa automatica: soltanto i fatti richiesti e i link."""
+    def render(product: dict) -> str:
+        local_question = (product_questions or {}).get(product["id"], question)
+        field_question = local_question
+        if product.get("name"):
+            field_question = re.sub(re.escape(product["name"]), "", field_question, flags=re.IGNORECASE)
+        local_fields = requested_fields(field_question) if product_questions and product["id"] in product_questions else []
+        selected_fields = (product_fields[product["id"]] if product_fields is not None and product["id"] in product_fields
+                           else local_fields or fields)
+        return _single_answer(product, local_question, selected_fields)
+
     links = [product_link(product) for product in products[:10]]
     if len(products) == 1:
-        reply = _single_answer(products[0], question, fields)
+        reply = render(products[0])
         if products[0].get("is_demo"):
             reply += " (Dati demo fittizi.)"
         return {"reply": reply, "status": "ok", "links": links}
@@ -166,8 +244,8 @@ def answer_products(question: str, products: list[dict], fields: list[str], *,
         if any(product.get("is_demo") for product in products):
             reply += " (Catalogo demo.)"
         return {"reply": reply, "status": "ok", "links": links}
-    if explicit_selection and fields:
-        return {"reply": " ".join(_single_answer(product, question, fields) for product in products[:10])
+    if explicit_selection:
+        return {"reply": "\n\n".join(render(product) for product in products[:10])
                 + (" (Dati demo fittizi.)" if any(p.get("is_demo") for p in products) else ""),
                 "status": "ok", "links": links}
     return {"reply": "Quale prodotto intendi: " + _join(names) + "? Puoi rispondere con il nome.",
